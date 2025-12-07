@@ -4,6 +4,8 @@ import 'package:housely/core/constants/app_text_styles.dart';
 import 'package:housely/core/enums/enums.dart';
 import 'package:housely/core/utils/layout.dart';
 import 'package:housely/core/widgets/app_button.dart';
+import 'package:housely/features/onboarding/data/model/onboarding_page_model.dart';
+import 'package:housely/features/onboarding/data/onboarding_page_mock_data.dart';
 import 'package:housely/features/onboarding/presentation/widgets/heading_block.dart';
 import 'package:housely/features/onboarding/presentation/widgets/hero_images.dart';
 import 'package:housely/features/onboarding/presentation/widgets/pager_dots.dart';
@@ -20,32 +22,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _controller = PageController();
   int _page = 0;
 
-  final List<Map<String, String>> pages = [
-    {
-      "bg": "assets/onboarding_assets/first_slide/bg1.png",
-      "fg": "assets/onboarding_assets/first_slide/fg1.png",
-      "title": "Find the perfect place for your future house",
-      "highlight": "perfect place",
-      "subtitle":
-          "find the best place for your dream house with your family and loved ones.",
-    },
-    {
-      "bg": "assets/onboarding_assets/second_slide/bg2.png",
-      "fg": "assets/onboarding_assets/second_slide/fg2.png",
-      "title": "Fast sell your property in just one click",
-      "highlight": "one click",
-      "subtitle":
-          "Simplify the property sales process with just your smartphone.",
-    },
-    {
-      "bg": "assets/onboarding_assets/third_slide/bg3.png",
-      "fg": "assets/onboarding_assets/third_slide/fg3.png",
-      "title": "find your dream home with us",
-      "highlight": "dream home",
-      "subtitle":
-          "Just search and select your favorite property you want to locate.",
-    },
-  ];
+  final List<OnboardingPageModel> pages = OnboardingPagesMockData.items;
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +54,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 itemCount: pages.length,
                 onPageChanged: (index) => setState(() => _page = index),
                 itemBuilder: (context, index) {
+                  final page = pages[index];
+
                   final progress = (_controller.hasClients)
                       ? _controller.page ?? 0
                       : 0;
@@ -84,17 +63,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   return Column(
                     children: [
                       HeroImages(
-                        backgroundImage: pages[index]["bg"]!,
-                        foregroundImage: pages[index]["fg"]!,
+                        backgroundImage: page.background,
+                        foregroundImage: page.foreground,
                         progress: (progress - index).toDouble(),
                       ),
 
                       const SizedBox(height: LayoutTokens.xxl),
 
                       HeadingBlock(
-                        title: pages[index]["title"]!,
-                        subtitle: pages[index]["subtitle"]!,
-                        highlightText: pages[index]["highlight"],
+                        title: page.title,
+                        subtitle: page.subtitle,
+                        highlightText: page.highlight,
                         highlightStyle: AppTextStyles.heading4Bold.copyWith(
                           fontSize: 39,
                         ),

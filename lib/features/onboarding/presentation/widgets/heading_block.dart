@@ -41,11 +41,15 @@ class HeadingBlock extends StatelessWidget {
   }
 
   Widget _buildTitle() {
-    if (highlightText == null || !title.contains(highlightText!)) {
+    final textToHighlight = highlightText;
+
+    if (textToHighlight == null ||
+        !title.contains(textToHighlight) ||
+        textToHighlight.isEmpty) {
       return Text(title, style: AppTextStyles.heading4Regular);
     }
 
-    final parts = title.split(highlightText!);
+    final parts = title.split(textToHighlight);
 
     return RichText(
       textAlign: TextAlign.center,
@@ -54,7 +58,7 @@ class HeadingBlock extends StatelessWidget {
         children: [
           TextSpan(text: parts[0]),
           TextSpan(
-            text: highlightText!,
+            text: textToHighlight,
             style:
                 highlightStyle ??
                 AppTextStyles.heading4Regular.copyWith(
