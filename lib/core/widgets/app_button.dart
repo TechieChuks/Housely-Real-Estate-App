@@ -9,6 +9,8 @@ class AppButton extends StatelessWidget {
   final ButtonVariant variant;
   final ButtonSize size;
   final double? width;
+  final Color? bgcolor;
+  final Color? bordercolor;
   final double? height;
   final Widget? icon; // optional
 
@@ -16,6 +18,8 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.label,
     required this.onPressed,
+    this.bgcolor,
+    this.bordercolor,
     this.variant = ButtonVariant.primary,
     this.size = ButtonSize.medium,
     this.width,
@@ -105,7 +109,7 @@ class AppButton extends StatelessWidget {
       return BorderSide(
         color: onPressed == null
             ? AppColors.gray[300]!
-            : AppColors.primary[600]!,
+            : AppColors.grayNeutral[200]!,
         width: 1.2,
       );
     }
@@ -124,7 +128,7 @@ class AppButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          backgroundColor: _backgroundColor,
+          backgroundColor: bgcolor ?? _backgroundColor,
           padding: _padding,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
