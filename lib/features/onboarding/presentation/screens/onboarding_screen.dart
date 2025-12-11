@@ -1,5 +1,6 @@
 import 'dart:async'; // NEW: Required for Timer autoplay feature
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:housely/core/constants/app_text_styles.dart';
 
 import 'package:housely/core/enums/enums.dart';
@@ -74,8 +75,41 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: Align(
                 alignment: Alignment.centerRight,
                 child: SkipButton(
-                  onTap: () {
-                    Navigator.pushReplacementNamed(context, "/login");
+                  onTap: () async {
+                    // 1) Stop autoplay so it won't fight with our manual navigation
+                    _autoPlayTimer?.cancel();
+
+                    // 2) guard if pages is empty
+                    final lastIndex = pages.length - 1;
+                    if (lastIndex < 0) return;
+
+                    // 3) If the PageController is attached, animate; otherwise schedule a jump.
+                    if (_controller.hasClients) {
+                      try {
+                        // update local page state immediately (keeps UI responsive)
+                        setState(() => _page = lastIndex);
+
+                        // try animated transition, but catch errors that can happen on hidden views
+                        await _controller.animateToPage(
+                          lastIndex,
+                          duration: const Duration(milliseconds: 400),
+                          curve: Curves.easeInOut,
+                        );
+                      } catch (err) {
+                        // fallback to immediate jump if animation fails
+                        _controller.jumpToPage(lastIndex);
+                      }
+                    } else {
+                      // The controller is not yet attached to any PageView (rare but possible).
+                      // Schedule it to run after the current frame so the PageView has a chance to attach.
+                      SchedulerBinding.instance.addPostFrameCallback((_) {
+                        if (_controller.hasClients) {
+                          // update state and jump
+                          setState(() => _page = lastIndex);
+                          _controller.jumpToPage(lastIndex);
+                        }
+                      });
+                    }
                   },
                 ),
               ),

@@ -12,20 +12,15 @@ class SkipButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AppButton(
-        bordercolor: AppColors.white,
-        width: 57,
-        height: 32,
-        //bgcolor: AppColors.grayNeutral[200],
-        variant: ButtonVariant.secondary,
-        label: "Skip",
-        onPressed: () {
-          print("object");
-        },
-        size: ButtonSize.small,
-      ),
+    return AppButton(
+      bordercolor: AppColors.white,
+      width: 57,
+      height: 32,
+      //bgcolor: AppColors.grayNeutral[200],
+      variant: ButtonVariant.secondary,
+      label: "Skip",
+      onPressed: onTap,
+      size: ButtonSize.small,
     );
   }
 }
