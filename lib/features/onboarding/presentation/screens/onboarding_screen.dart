@@ -1,3 +1,4 @@
+import 'dart:async'; // NEW: Required for Timer autoplay feature
 import 'package:flutter/material.dart';
 import 'package:housely/core/constants/app_text_styles.dart';
 
@@ -21,8 +22,40 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _controller = PageController();
   int _page = 0;
-
+  // NEW: NEW CLASS MEMBER TIMER PROPERTY used to auto-slide the onboarding pages
+  Timer? _autoPlayTimer; // NEW CLASS MEMBER TIMER PROPERTY
   final List<OnboardingPageModel> pages = OnboardingPagesMockData.items;
+  @override
+  void initState() {
+    super.initState();
+    _startAutoPlay(); // NEW: Automatically start page auto-sliding
+  }
+
+  @override
+  void dispose() {
+    _autoPlayTimer?.cancel(); // NEW: Prevent memory leak by stopping timer
+
+    _controller.dispose();
+    super.dispose();
+  }
+
+  // NEW Method to: Periodically auto-move to the next onboarding page
+  void _startAutoPlay() {
+    _autoPlayTimer = Timer.periodic(const Duration(seconds: 4), (timer) {
+      if (_page < pages.length - 1) {
+        _controller.nextPage(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+        );
+      } else {
+        // Optional: loop back to start
+        // _controller.jumpToPage(0);
+
+        // OR stop autoplay on last page:
+        timer.cancel();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +118,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
 
             const SizedBox(height: LayoutTokens.lg),
-
-            PagerDots(count: pages.length, currentIndex: _page),
+            //Updated pagerDots with ontap function
+            PagerDots(
+              count: pages.length,
+              currentIndex: _page,
+              // NEW: Respond when user taps a dot indicator
+              onDotTap: (index) {
+                // Restart autoplay when user interacts
+                _autoPlayTimer?.cancel();
+                _startAutoPlay();
+                // Move PageView to tapped dot index
+                _controller.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeOut,
+                );
+              },
+            ),
 
             Padding(
               padding: const EdgeInsets.all(ScreenPadding.horizontal),
