@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:housely/features/login/presentation/onboarding_screen.dart';
+import 'package:housely/features/login/presentation/login_screen.dart';
 import 'package:housely/features/onboarding/presentation/screens/onboarding_screen.dart';
 
 void main() {

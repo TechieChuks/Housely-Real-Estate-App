@@ -3,9 +3,14 @@ import 'package:housely/core/enums/enums.dart';
 
 class AppTextInput extends StatelessWidget {
   final String label;
+  final String? errorText;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged? onSubmitted;
   final String hintText;
   final TextEditingController? controller;
   final TextInputType keyboardType;
+  final Widget? prefixIcon;
+  final TextInputAction textInputAction;
   final Widget? suffixIcon;
   final TextInputState state;
   final bool obscureText;
@@ -14,12 +19,17 @@ class AppTextInput extends StatelessWidget {
   const AppTextInput({
     super.key,
     required this.label,
+    this.onChanged,
+    this.onSubmitted,
+    this.errorText,
     required this.hintText,
     this.controller,
     this.keyboardType = TextInputType.text,
     this.suffixIcon,
+    this.textInputAction = TextInputAction.done,
     this.state = TextInputState.defaultState,
     this.obscureText = false,
+    this.prefixIcon,
     this.isLarge = true, // Large or Medium
   });
 
@@ -65,12 +75,17 @@ class AppTextInput extends StatelessWidget {
 
         TextField(
           controller: controller,
+          onChanged: onChanged,
+          onSubmitted: onSubmitted,
           enabled: !isDisabled,
           keyboardType: keyboardType,
           obscureText: obscureText,
           style: TextStyle(fontSize: fontSize),
+          textInputAction: textInputAction,
 
           decoration: InputDecoration(
+            errorText: errorText,
+            prefixIcon: prefixIcon,
             hintText: hintText,
             filled: true,
             fillColor: getFillColor(),

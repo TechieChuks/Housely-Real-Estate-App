@@ -52,7 +52,10 @@ class AppButton extends StatelessWidget {
       case ButtonSize.medium:
         return AppTextStyles.paragraph3Medium.copyWith(color: _textColor);
       case ButtonSize.large:
-        return AppTextStyles.paragraph2Medium.copyWith(color: _textColor);
+        return AppTextStyles.paragraph2Medium.copyWith(
+          fontSize: 25,
+          color: _textColor,
+        );
     }
   }
 

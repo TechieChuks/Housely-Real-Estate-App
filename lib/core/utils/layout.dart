@@ -1,6 +1,7 @@
 /// Global spacing tokens for layout consistency.
 /// NEVER use raw numbers like 8, 12, 24 in widgets.
 /// Always use LayoutTokens.xx.
+library;
 
 class LayoutTokens {
   LayoutTokens._();
