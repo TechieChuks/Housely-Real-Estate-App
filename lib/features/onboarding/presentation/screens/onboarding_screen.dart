@@ -12,6 +12,7 @@ import 'package:housely/features/onboarding/presentation/widgets/heading_block.d
 import 'package:housely/features/onboarding/presentation/widgets/hero_images.dart';
 import 'package:housely/features/onboarding/presentation/widgets/pager_dots.dart';
 import 'package:housely/features/onboarding/presentation/widgets/skip_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -178,8 +179,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 variant: ButtonVariant.primary,
 
                 label: _page == pages.length - 1 ? "Get Started" : "Next",
-                onPressed: () {
+                onPressed: () async {
                   if (_page == pages.length - 1) {
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setBool('seenOnboarding', true);
                     Navigator.pushReplacementNamed(context, "/login");
                   } else {
                     _controller.nextPage(

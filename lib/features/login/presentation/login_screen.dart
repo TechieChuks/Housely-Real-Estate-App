@@ -193,8 +193,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 InkWell(
                   onTap: () async {
-                    final prefs = await SharedPreferences.getInstance();
-                    await prefs.setBool('seenOnboarding', true);
                     Navigator.pushNamed(context, "/signup");
                   },
                   child: Text(
