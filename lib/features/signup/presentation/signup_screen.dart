@@ -7,30 +7,32 @@ import 'package:housely/core/utils/layout.dart';
 import 'package:housely/core/widgets/app_button.dart';
 import 'package:housely/core/widgets/app_textfields.dart';
 import 'package:housely/core/widgets/social_auth_widgets.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  bool isChecked = false;
-  bool isPasswordVisible = false;
-  String password = '';
-
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  String? passwordError;
-  String? emailError;
+class _SignupScreenState extends State<SignupScreen> {
   @override
   void initState() {
     super.initState();
     _emailController.addListener(() => setState(() {}));
   }
 
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _userNameController = TextEditingController();
+
+  String password = '';
+  bool isPasswordVisible = false;
+  bool isChecked = false;
+
+  String? emailError;
+  String? passwordError;
+  String? userNameError;
   void validate() {
     setState(() {
       emailError = null;
@@ -42,6 +44,10 @@ class _LoginScreenState extends State<LoginScreen> {
       if (_passwordController.text.isEmpty) {
         passwordError = "Password is required";
       }
+
+      if (_userNameController.text.isEmpty) {
+        userNameError = "Usernamre is required";
+      }
     });
   }
 
@@ -49,7 +55,12 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -57,11 +68,12 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(height: LayoutTokens.lg),
             Text(
               textAlign: TextAlign.left,
-              "Welcome Back !",
+              "Register Account",
               style: AppTextStyles.heading5Bold.copyWith(fontSize: 33),
             ),
             Text(
@@ -91,6 +103,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
             ),
             SizedBox(height: LayoutTokens.md),
+
+            AppTextInput(
+              controller: _userNameController,
+              errorText: userNameError,
+              prefixIcon: Icon(Icons.account_circle),
+              textInputAction: TextInputAction.done,
+              label: "Username",
+              hintText: "TechieChuks",
+              keyboardType: TextInputType.name,
+              isLarge: true,
+              state: TextInputState.typing,
+              suffixIcon: _userNameController.text.isEmpty
+                  ? Container(width: 0)
+                  : IconButton(
+                      onPressed: _userNameController.clear,
+                      icon: Icon(Icons.close),
+                    ),
+            ),
+            SizedBox(height: LayoutTokens.md),
+
             AppTextInput(
               onChanged: (value) => setState(() {
                 password = value;
@@ -119,44 +151,21 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: LayoutTokens.md),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Theme(
-                      data: Theme.of(
-                        context,
-                      ).copyWith(unselectedWidgetColor: AppColors.primaryColor),
-                      child: Checkbox(
-                        //controlAffinity: ListTileControlAffinity.leading,
-                        //title: Text("Remember Me"),
-                        value: isChecked,
-                        onChanged: (value) {
-                          setState(() {
-                            isChecked = value!;
-                          });
-                        },
-                        activeColor: AppColors.primaryColor,
-                        checkColor: AppColors.white,
-                      ),
-                    ),
-                    Text(
-                      "Remember Me",
-                      style: AppTextStyles.paragraph4Regular.copyWith(
-                        fontSize: 20,
-                      ),
-                    ),
-                  ],
+                Checkbox(
+                  value: isChecked,
+                  onChanged: (value) {
+                    setState(() {
+                      isChecked = value!;
+                    });
+                  },
+                  activeColor: AppColors.primaryColor,
+                  checkColor: AppColors.white,
                 ),
-                InkWell(
-                  onTap: () => debugPrint("object"),
-                  child: Text(
-                    "Forgot password ?",
-                    style: AppTextStyles.paragraph4Regular.copyWith(
-                      fontSize: 20,
-                      color: AppColors.primaryColor,
-                    ),
-                  ),
+                Text(
+                  "Agree with terms and privacy",
+                  style: AppTextStyles.paragraph4Regular.copyWith(fontSize: 20),
                 ),
               ],
             ),
@@ -165,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
               size: ButtonSize.large,
               variant: ButtonVariant.primary,
               //height: 62,
-              label: "SignIn",
+              label: "Signup",
               onPressed: () {
                 validate();
               },
@@ -181,9 +190,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            SizedBox(height: LayoutTokens.lg),
+            SizedBox(height: LayoutTokens.md),
             Center(child: SocialsAuthWidgets()),
-            SizedBox(height: LayoutTokens.xl),
+            SizedBox(height: LayoutTokens.md),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -192,13 +201,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: AppTextStyles.paragraph4Regular.copyWith(fontSize: 17),
                 ),
                 InkWell(
-                  onTap: () async {
-                    final prefs = await SharedPreferences.getInstance();
-                    await prefs.setBool('seenOnboarding', true);
-                    Navigator.pushNamed(context, "/signup");
+                  onTap: () {
+                    Navigator.pushNamed(context, "/login");
                   },
                   child: Text(
-                    " Sign up",
+                    " Sign in",
                     style: AppTextStyles.paragraph4Regular.copyWith(
                       color: AppColors.primaryColor,
                       fontSize: 17,
