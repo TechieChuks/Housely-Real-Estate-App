@@ -7,7 +7,6 @@ import 'package:housely/core/utils/layout.dart';
 import 'package:housely/core/widgets/app_button.dart';
 import 'package:housely/core/widgets/app_textfields.dart';
 import 'package:housely/core/widgets/social_auth_widgets.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
