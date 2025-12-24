@@ -148,7 +148,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 InkWell(
-                  onTap: () => debugPrint("object"),
+                  onTap: () {
+                    Navigator.pushNamed(context, "/forgotpassword");
+                  },
                   child: Text(
                     "Forgot password ?",
                     style: AppTextStyles.paragraph4Regular.copyWith(
