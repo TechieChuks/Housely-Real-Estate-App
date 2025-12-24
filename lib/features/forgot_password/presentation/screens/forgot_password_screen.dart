@@ -82,7 +82,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     debugPrint("Hello phone");
                   }
                   if (isEmailSelected == true) {
-                    debugPrint("Hello email");
+                    Navigator.pushNamed(context, "/resetpassword");
                   }
                 },
               ),

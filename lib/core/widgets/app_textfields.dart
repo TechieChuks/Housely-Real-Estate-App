@@ -84,7 +84,7 @@ class AppTextInput extends StatelessWidget {
           textInputAction: textInputAction,
 
           decoration: InputDecoration(
-            errorText: errorText,
+            errorText: errorText?.isNotEmpty == true ? errorText : null,
             prefixIcon: prefixIcon,
             hintText: hintText,
             filled: true,
@@ -98,6 +98,7 @@ class AppTextInput extends StatelessWidget {
 
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
+              gapPadding: 0,
               borderSide: BorderSide(color: getBorderColor(), width: 1),
             ),
             focusedBorder: OutlineInputBorder(

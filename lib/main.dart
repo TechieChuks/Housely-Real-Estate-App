@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:housely/features/forgot_password/presentation/screens/forgot_password_screen.dart';
 import 'package:housely/features/login/presentation/login_screen.dart';
 import 'package:housely/features/onboarding/presentation/screens/onboarding_screen.dart';
+import 'package:housely/features/reset_password/presentation/reset_password_screen.dart';
 import 'package:housely/features/signup/presentation/signup_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/signup': (context) => SignupScreen(),
         '/forgotpassword': (context) => ForgotPasswordScreen(),
+        '/resetpassword': (context) => ResetPasswordScreen(),
       },
     );
   }
