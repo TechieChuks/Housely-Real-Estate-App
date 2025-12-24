@@ -47,7 +47,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           _newPassWordContoller.text.isNotEmpty &&
           _newPassWordContoller.text == "1234" &&
           _confirmPassWordContoller.text == "1234") {
-        AppToast.showSuccess(context, message: "Login Verified");
+        AppToast.showSuccess(context, message: "Reset Password Approved");
         await Future.delayed(const Duration(seconds: 3));
         Navigator.push(
           context,

@@ -6,6 +6,8 @@ import 'package:housely/core/enums/enums.dart';
 import 'package:housely/core/utils/layout.dart';
 import 'package:housely/core/widgets/app_button.dart';
 import 'package:housely/core/widgets/app_textfields.dart';
+import 'package:housely/core/widgets/app_toast.dart';
+import 'package:housely/core/widgets/result_screen_widget.dart';
 import 'package:housely/core/widgets/social_auth_widgets.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -34,7 +36,7 @@ class _SignupScreenState extends State<SignupScreen> {
   String? passwordError;
   String? userNameError;
   void validate() {
-    setState(() {
+    setState(() async {
       emailError = null;
       passwordError = null;
       if (_emailController.text.isEmpty) {
@@ -47,6 +49,33 @@ class _SignupScreenState extends State<SignupScreen> {
 
       if (_userNameController.text.isEmpty) {
         userNameError = "Usernamre is required";
+      }
+
+      if (_emailController.text.isNotEmpty &&
+          _passwordController.text.isNotEmpty &&
+          _userNameController.text.isNotEmpty &&
+          _emailController.text == "chuksanoliefo@gmail.com" &&
+          _passwordController.text == "1234" &&
+          _userNameController.text == "TechieChuks") {
+        AppToast.showSuccess(
+          context,
+          message: "Account Successfull created please Verify",
+        );
+        await Future.delayed(const Duration(seconds: 3));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ResultScreen(
+              title: 'Account Creation Success!',
+              subtitle:
+                  'Your Account has been successfully Created.\nPlease click the button to receive OTP code.',
+              buttonText: 'Continue',
+              onButtonPressed: () {
+                Navigator.pushNamed(context, "/verification");
+              },
+            ),
+          ),
+        );
       }
     });
   }
@@ -136,7 +165,7 @@ class _SignupScreenState extends State<SignupScreen> {
               textInputAction: TextInputAction.done,
               controller: _passwordController,
               label: "Password",
-              hintText: "••••••••",
+              hintText: "Enter Password",
               keyboardType: TextInputType.emailAddress,
               isLarge: true,
               state: TextInputState.typing,

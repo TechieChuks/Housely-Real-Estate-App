@@ -6,6 +6,8 @@ import 'package:housely/core/enums/enums.dart';
 import 'package:housely/core/utils/layout.dart';
 import 'package:housely/core/widgets/app_button.dart';
 import 'package:housely/core/widgets/app_textfields.dart';
+import 'package:housely/core/widgets/app_toast.dart';
+import 'package:housely/core/widgets/result_screen_widget.dart';
 import 'package:housely/core/widgets/social_auth_widgets.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -24,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   String? passwordError;
   String? emailError;
+
   @override
   void initState() {
     super.initState();
@@ -31,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void validate() {
-    setState(() {
+    setState(() async {
       emailError = null;
       passwordError = null;
       if (_emailController.text.isEmpty) {
@@ -40,6 +43,32 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (_passwordController.text.isEmpty) {
         passwordError = "Password is required";
+      }
+
+      if (_passwordController.text == "1234") {
+        passwordError = "Password is required";
+      }
+
+      if (_emailController.text.isNotEmpty &&
+          _passwordController.text.isNotEmpty &&
+          _emailController.text == "chuksanoliefo@gmail.com" &&
+          _passwordController.text == "1234") {
+        AppToast.showSuccess(context, message: "Login Verified");
+        await Future.delayed(const Duration(seconds: 3));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ResultScreen(
+              title: 'Successful Login!',
+              subtitle:
+                  'Your Account has been successfully logged in.\nPlease click the button below to continue.',
+              buttonText: 'Continue',
+              onButtonPressed: () {
+                Navigator.pushNamed(context, "/login");
+              },
+            ),
+          ),
+        );
       }
     });
   }

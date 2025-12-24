@@ -84,7 +84,8 @@ class _ResultScreenState extends State<ResultScreen>
               ),
             ),
 
-            const Spacer(),
+            //  const Spacer(),
+            const SizedBox(height: 190),
 
             /// ACTION BUTTON
             Padding(
