@@ -3,19 +3,29 @@ import 'package:housely/core/constants/app_colors.dart';
 import 'package:housely/core/constants/app_text_styles.dart';
 import 'package:housely/core/enums/enums.dart';
 import 'package:housely/core/widgets/app_button.dart';
+import 'package:housely/core/widgets/success_painter.dart';
 
-import 'package:housely/features/success_reset/presentation/widgets/custom_painter_widget.dart';
+class ResultScreen extends StatefulWidget {
+  final String title;
+  final String subtitle;
+  final String buttonText;
+  final VoidCallback onButtonPressed;
 
-class SuccessScreen extends StatefulWidget {
-  const SuccessScreen({super.key});
+  const ResultScreen({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.buttonText,
+    required this.onButtonPressed,
+  });
 
   @override
-  State<SuccessScreen> createState() => _SuccessScreenState();
+  State<ResultScreen> createState() => _ResultScreenState();
 }
 
-class _SuccessScreenState extends State<SuccessScreen>
+class _ResultScreenState extends State<ResultScreen>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+  late final AnimationController _controller;
 
   @override
   void initState() {
@@ -50,17 +60,22 @@ class _SuccessScreenState extends State<SuccessScreen>
               },
             ),
             const SizedBox(height: 40),
+
+            /// TITLE
             Text(
-              'Success!',
+              widget.title,
               style: AppTextStyles.heading5SemiBold.copyWith(
                 color: AppColors.grayNeutral[800],
               ),
             ),
+
             const SizedBox(height: 12),
+
+            /// SUBTITLE
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Text(
-                'Your password has been changed. Please \n log in again with a new password.',
+                widget.subtitle,
                 textAlign: TextAlign.center,
                 style: AppTextStyles.paragraph4Regular.copyWith(
                   fontSize: 18,
@@ -68,17 +83,19 @@ class _SuccessScreenState extends State<SuccessScreen>
                 ),
               ),
             ),
-            const SizedBox(height: 199),
+
+            const Spacer(),
+
+            /// ACTION BUTTON
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
               child: SizedBox(
                 width: double.infinity,
-                // height: 56,
                 child: AppButton(
                   size: ButtonSize.large,
                   variant: ButtonVariant.primary,
-                  label: "Continue",
-                  onPressed: () {},
+                  label: widget.buttonText,
+                  onPressed: widget.onButtonPressed,
                 ),
               ),
             ),

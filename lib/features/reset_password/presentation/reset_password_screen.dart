@@ -6,6 +6,7 @@ import 'package:housely/core/utils/layout.dart';
 import 'package:housely/core/widgets/app_button.dart';
 import 'package:housely/core/widgets/app_textfields.dart';
 import 'package:housely/core/widgets/app_toast.dart';
+import 'package:housely/core/widgets/result_screen_widget.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -48,7 +49,20 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           _confirmPassWordContoller.text == "1234") {
         AppToast.showSuccess(context, message: "Login Verified");
         await Future.delayed(const Duration(seconds: 3));
-        Navigator.pushNamed(context, "/successscreen");
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ResultScreen(
+              title: 'Success!',
+              subtitle:
+                  'Your password has been changed.\nPlease log in again with a new password.',
+              buttonText: 'Continue',
+              onButtonPressed: () {
+                Navigator.pushNamed(context, "/login");
+              },
+            ),
+          ),
+        );
       }
       if (_newPassWordContoller.text != "1234" ||
           _confirmPassWordContoller.text != "1234") {
