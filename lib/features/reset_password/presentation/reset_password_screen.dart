@@ -5,6 +5,7 @@ import 'package:housely/core/enums/enums.dart';
 import 'package:housely/core/utils/layout.dart';
 import 'package:housely/core/widgets/app_button.dart';
 import 'package:housely/core/widgets/app_textfields.dart';
+import 'package:housely/core/widgets/app_toast.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -15,7 +16,8 @@ class ResetPasswordScreen extends StatefulWidget {
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   bool isChecked = false;
-  bool isPasswordVisible = false;
+  bool isNewPasswordVisible = false;
+  bool isConfPasswordVisible = false;
   String password = '';
   final _newPassWordContoller = TextEditingController();
   final _confirmPassWordContoller = TextEditingController();
@@ -30,7 +32,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   }
 
   void validate() {
-    setState(() {
+    setState(() async {
       newPasswordError = null;
       confirmPasswordError = null;
       if (_newPassWordContoller.text.isEmpty) {
@@ -39,6 +41,18 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
       if (_confirmPassWordContoller.text.isEmpty) {
         confirmPasswordError = "Password Confirm is required";
+      }
+      if (_confirmPassWordContoller.text.isNotEmpty &&
+          _newPassWordContoller.text.isNotEmpty &&
+          _newPassWordContoller.text == "1234" &&
+          _confirmPassWordContoller.text == "1234") {
+        AppToast.showSuccess(context, message: "Login Verified");
+        await Future.delayed(const Duration(seconds: 3));
+        Navigator.pushNamed(context, "/successscreen");
+      }
+      if (_newPassWordContoller.text != "1234" ||
+          _confirmPassWordContoller.text != "1234") {
+        AppToast.showError(context, message: "Wrong Passwords");
       }
     });
   }
@@ -82,7 +96,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   password = value;
                 }),
                 errorText: newPasswordError,
-                obscureText: isPasswordVisible,
+                obscureText: isNewPasswordVisible,
                 prefixIcon: Icon(Icons.lock),
                 textInputAction: TextInputAction.done,
                 controller: _newPassWordContoller,
@@ -92,11 +106,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 isLarge: true,
                 state: TextInputState.typing,
                 suffixIcon: IconButton(
-                  icon: isPasswordVisible
+                  icon: isNewPasswordVisible
                       ? Icon(Icons.visibility_off)
                       : Icon(Icons.visibility),
                   onPressed: () => setState(() {
-                    isPasswordVisible = !isPasswordVisible;
+                    isNewPasswordVisible = !isNewPasswordVisible;
                   }),
                 ),
               ),
@@ -109,7 +123,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   password = value;
                 }),
                 errorText: confirmPasswordError,
-                obscureText: isPasswordVisible,
+                obscureText: isConfPasswordVisible,
                 prefixIcon: Icon(Icons.lock),
                 textInputAction: TextInputAction.done,
                 controller: _confirmPassWordContoller,
@@ -119,11 +133,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 isLarge: true,
                 state: TextInputState.typing,
                 suffixIcon: IconButton(
-                  icon: isPasswordVisible
+                  icon: isConfPasswordVisible
                       ? Icon(Icons.visibility_off)
                       : Icon(Icons.visibility),
                   onPressed: () => setState(() {
-                    isPasswordVisible = !isPasswordVisible;
+                    isConfPasswordVisible = !isConfPasswordVisible;
                   }),
                 ),
               ),

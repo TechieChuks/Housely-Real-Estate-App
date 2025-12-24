@@ -4,6 +4,7 @@ import 'package:housely/features/login/presentation/login_screen.dart';
 import 'package:housely/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:housely/features/reset_password/presentation/reset_password_screen.dart';
 import 'package:housely/features/signup/presentation/signup_screen.dart';
+import 'package:housely/features/success_reset/presentation/screens/success_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/signup': (context) => SignupScreen(),
         '/forgotpassword': (context) => ForgotPasswordScreen(),
         '/resetpassword': (context) => ResetPasswordScreen(),
+        '/successscreen': (context) => SuccessScreen(),
       },
     );
   }
