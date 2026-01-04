@@ -70,6 +70,10 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         );
       }
+      if (_emailController.text != "chuksanoliefo@gmail.com" ||
+          _passwordController.text != "1234") {
+        AppToast.showError(context, message: "Wrong Email and Passwords");
+      }
     });
   }
 
@@ -132,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
               textInputAction: TextInputAction.done,
               controller: _passwordController,
               label: "Password",
-              hintText: "••••••••",
+              hintText: "Enter Password",
               keyboardType: TextInputType.emailAddress,
               isLarge: true,
               state: TextInputState.typing,

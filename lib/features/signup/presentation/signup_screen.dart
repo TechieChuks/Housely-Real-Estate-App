@@ -51,10 +51,7 @@ class _SignupScreenState extends State<SignupScreen> {
         userNameError = "Usernamre is required";
       }
 
-      if (_emailController.text.isNotEmpty &&
-          _passwordController.text.isNotEmpty &&
-          _userNameController.text.isNotEmpty &&
-          _emailController.text == "chuksanoliefo@gmail.com" &&
+      if (_emailController.text == "chuksanoliefo@gmail.com" &&
           _passwordController.text == "1234" &&
           _userNameController.text == "TechieChuks") {
         AppToast.showSuccess(
@@ -75,6 +72,14 @@ class _SignupScreenState extends State<SignupScreen> {
               },
             ),
           ),
+        );
+      }
+      if (_emailController.text != "chuksanoliefo@gmail.com" ||
+          _passwordController.text != "1234" ||
+          _userNameController.text != "TechieChuks") {
+        AppToast.showError(
+          context,
+          message: "Wrong Username, email and Passwords",
         );
       }
     });
