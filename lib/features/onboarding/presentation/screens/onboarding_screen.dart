@@ -11,7 +11,7 @@ import 'package:housely/features/onboarding/data/onboarding_page_mock_data.dart'
 import 'package:housely/features/onboarding/presentation/widgets/heading_block.dart';
 import 'package:housely/features/onboarding/presentation/widgets/hero_images.dart';
 import 'package:housely/features/onboarding/presentation/widgets/pager_dots.dart';
-import 'package:housely/features/onboarding/presentation/widgets/skip_button.dart';
+import 'package:housely/core/widgets/skip_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingScreen extends StatefulWidget {

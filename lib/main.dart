@@ -3,6 +3,7 @@ import 'package:housely/features/forgot_password/presentation/screens/forgot_pas
 import 'package:housely/features/login/presentation/login_screen.dart';
 import 'package:housely/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:housely/features/reset_password/presentation/reset_password_screen.dart';
+import 'package:housely/features/search_location/presentation/search_location_screen.dart';
 import 'package:housely/features/signup/presentation/signup_screen.dart';
 import 'package:housely/features/verification_screen/presentation/screens/verification_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         '/forgotpassword': (context) => ForgotPasswordScreen(),
         '/resetpassword': (context) => ResetPasswordScreen(),
         '/verification': (context) => VerificationScreen(),
+        '/search_location': (context) => SearchLocationScreen(),
       },
     );
   }

@@ -123,7 +123,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 //height: 62,
                 label: "Verify",
                 onPressed: () {
-                  // validate();
+                  Navigator.pushNamed(context, "/search_location");
                 },
               ),
             ),
