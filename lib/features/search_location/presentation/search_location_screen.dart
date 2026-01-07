@@ -63,7 +63,9 @@ class SearchLocationScreen extends StatelessWidget {
               size: ButtonSize.large,
               label: "Select it Manually",
               variant: ButtonVariant.secondary,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, "/choose_location_screen");
+              },
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:housely/features/choose_location_screen/presentation/choose_location_screen.dart';
 import 'package:housely/features/forgot_password/presentation/screens/forgot_password_screen.dart';
 import 'package:housely/features/login/presentation/login_screen.dart';
 import 'package:housely/features/onboarding/presentation/screens/onboarding_screen.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/resetpassword': (context) => ResetPasswordScreen(),
         '/verification': (context) => VerificationScreen(),
         '/search_location': (context) => SearchLocationScreen(),
+        '/choose_location_screen': (context) => ChooseLocationScreen(),
       },
     );
   }
