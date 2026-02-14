@@ -69,6 +69,7 @@ flutter:
     - assets/onboarding_assets/third_slide/
     - assets/social_assets/
     - assets/choose_location_assets/
+    - assets/profile_assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

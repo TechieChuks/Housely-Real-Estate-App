@@ -64,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   'Your Account has been successfully logged in.\nPlease click the button below to continue.',
               buttonText: 'Continue',
               onButtonPressed: () {
-                Navigator.pushNamed(context, "/login");
+                Navigator.pushNamed(context, "/mainscreen");
               },
             ),
           ),

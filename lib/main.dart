@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:housely/features/choose_location_screen/presentation/choose_location_screen.dart';
 import 'package:housely/features/forgot_password/presentation/screens/forgot_password_screen.dart';
 import 'package:housely/features/login/presentation/login_screen.dart';
+import 'package:housely/features/main_screens/edit_profile_screen/presentation/edit_profile_screen.dart';
+import 'package:housely/features/main_screens/main_screen.dart';
+import 'package:housely/features/main_screens/profile_screen/presentation/profile_screen.dart';
 import 'package:housely/features/onboarding/presentation/screens/onboarding_screen.dart';
 import 'package:housely/features/reset_password/presentation/reset_password_screen.dart';
 import 'package:housely/features/search_location/presentation/search_location_screen.dart';
@@ -38,6 +41,9 @@ class MyApp extends StatelessWidget {
         '/verification': (context) => VerificationScreen(),
         '/search_location': (context) => SearchLocationScreen(),
         '/choose_location_screen': (context) => ChooseLocationScreen(),
+        '/mainscreen': (context) => MainScreens(),
+        '/profilescreen': (context) => ProfileScreen(),
+        '/editprofilescreen': (context) => EditProfileScreen(),
       },
     );
   }
