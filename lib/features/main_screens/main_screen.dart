@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housely/core/constants/app_colors.dart';
+import 'package:housely/features/main_screens/home_screen/presentation/home_screen.dart';
 import 'package:housely/features/main_screens/profile_screen/presentation/profile_screen.dart';
 
 class MainScreens extends StatefulWidget {
@@ -13,7 +14,7 @@ class _MainScreensState extends State<MainScreens> {
   int _selectedIndex = 0;
   // List of widgets to display in each tab
   static const List<Widget> _widgetOptions = <Widget>[
-    Text('HOME PAGE'),
+    HomeScreen(),
     Text('EXPLORE PAGE'),
     Text('FAVOURITE PAGE'),
     Text('MY BOOKING PAGE'),
